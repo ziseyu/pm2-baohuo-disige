@@ -17,7 +17,8 @@ jobs:
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY },{ secrets.SSH_PRIVATE_KEY_ZISEYU }}
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_PRIVATE_KEY_ZISEYU: ${{ secrets.SSH_PRIVATE_KEY_ZISEYU }}
         
 
     - name: Check if service is running
