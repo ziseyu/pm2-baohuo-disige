@@ -18,14 +18,11 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        SSH_PRIVATE_KEY_ZISEYU: ${{ secrets.SSH_PRIVATE_KEY_ZISEYU }}
-        
 
     - name: Check if service is running
       id: check_service
       run: |
-        if curl --head --silent --fail http://diandian222.ziseyu.us.kg/ > /dev/null;  #这里改成你的Web服务的地址
-           curl --head --silent --fail https://ziseyu.serv00.net/ > /dev/null; then
+        if curl --head --silent --fail diandian222.ziseyu.us.kg > /dev/null; then #这里改成你的Web服务的地址
           echo "service_status=running" >> $GITHUB_ENV
         else
           echo "service_status=not_running" >> $GITHUB_ENV
@@ -33,5 +30,4 @@ jobs:
 
     - name: Run script on remote server if service is not running
       if: env.service_status == 'not_running'
-      run: ssh -o StrictHostKeyChecking=no diandian222@s6.serv00.com "/home/diandian222/run.sh"#这里改成你的用户名@你的ssh服务器地址
-           ssh -o StrictHostKeyChecking=no ziseyu@s6.serv00.com "/home/ziseyu/run.sh"
+      run: ssh -o StrictHostKeyChecking=no diandian222@s6.serv00.com "/home/diandian222/run.sh" #这里改成你的用户名@你的ssh服务器地址，以及/home/你的用户名/run.sh
